@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Chào em cửa sổ tâm hồn - design tokens.
+ *
+ * The world is "looking out of a window in the early morning": giấy dó paper, chàm indigo,
+ * đồng bronze. Three roles, one chrome accent, one moment colour, and nothing else.
+ * Values are bare `H S% L%` because tailwind.config.js wraps them in hsl().
+ *
+ * Improvement: an AI working in this block may tune these values. Keep the three text
+ * roles and the single chrome accent; adding a fourth colour to the chrome is how the
+ * screen turns back into a template.
+ */
+
+:root {
+  --background: 40 42% 94%;
+  --foreground: 40 10% 12%;
+  --card: 40 55% 98%;
+  --card-foreground: 40 10% 12%;
+  --popover: 40 55% 98%;
+  --popover-foreground: 40 10% 12%;
+  --primary: 212 39% 30%;
+  --primary-foreground: 40 55% 98%;
+  --secondary: 40 26% 88%;
+  --secondary-foreground: 40 10% 18%;
+  --muted: 40 26% 90%;
+  --muted-foreground: 40 8% 38%;
+  --accent: 40 26% 88%;
+  --accent-foreground: 40 10% 18%;
+  --destructive: 7 61% 43%;
+  --destructive-foreground: 40 55% 98%;
+  --border: 40 12% 84%;
+  --input: 40 12% 84%;
+  --ring: 212 39% 30%;
+
+  /* The one moment colour: the drum star, the countdown ring, the single figure. */
+  --moment: 43 67% 47%;
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: 36 14% 7%;
+  --foreground: 40 36% 92%;
+  --card: 36 12% 11%;
+  --card-foreground: 40 36% 92%;
+  --popover: 36 12% 11%;
+  --popover-foreground: 40 36% 92%;
+  --primary: 40 30% 92%;
+  --primary-foreground: 36 14% 7%;
+  --secondary: 36 10% 16%;
+  --secondary-foreground: 40 30% 90%;
+  --muted: 36 10% 15%;
+  --muted-foreground: 40 10% 62%;
+  --accent: 36 10% 16%;
+  --accent-foreground: 40 30% 90%;
+  --destructive: 7 62% 56%;
+  --destructive-foreground: 36 14% 7%;
+  --border: 36 10% 20%;
+  --input: 36 10% 20%;
+  --ring: 212 34% 64%;
+  --moment: 43 62% 56%;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: "Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "tnum" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
+  }
+
+  ::selection {
+    background-color: hsl(var(--primary) / 0.16);
+  }
+
+  /* One focus ring for the whole app, so a keyboard user can always see where they are. */
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+}
+
+/* The break image drifts outward for the length of the break, so a still photograph has
+   somewhere for a tired eye to rest instead of sitting there frozen. */
+@keyframes chaoem-nen-nghi {
+  from {
+    transform: scale(1.03);
+  }
+  to {
+    transform: scale(1.14);
+  }
+}
+
+.nen-nghi {
+  animation-name: chaoem-nen-nghi;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  transform-origin: center;
+}

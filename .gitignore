@@ -1,0 +1,18 @@
+# Dependencies and build output: rebuilt from package-lock.json and Cargo.lock, never committed.
+/node_modules
+/dist
+node_modules
+dist
+
+# The Rust toolchain and the build's temp space: 1.5 GB that a clone installs for itself.
+/.toolchain
+/src-tauri/target
+
+# The delivery archives and the extracted copy of an old installer: binaries, and they belong in
+# GitHub Releases rather than in the tree.
+/tai_lieu/*.zip
+/tai_lieu/BaoVeCuaSoTamHon-1.0.0-CaiDat/
+
+# Upstream's marketing site, 11.6 MB, which nothing in the app imports. It stays on the owner's
+# machine until he decides to cut it; it is not part of the product this repository publishes.
+/website/

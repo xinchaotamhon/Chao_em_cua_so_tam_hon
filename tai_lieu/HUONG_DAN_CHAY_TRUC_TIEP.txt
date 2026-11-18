@@ -1,0 +1,39 @@
+BẢO VỆ CỬA SỔ TÂM HỒN — bản chạy trực tiếp
+(không cần cài đặt, không ghi vào registry)
+
+CÁCH DÙNG
+1. Chép cả thư mục này vào một chỗ cố định, ví dụ D:\PhanMem\BaoVeMat hoặc Desktop.
+   Đừng để trong thư mục Tải về, vì dọn Downloads là mất.
+   Đừng chạy từ trong thư mục chứa mã nguồn trên ổ D: — Windows có thể chặn.
+2. Bấm đúp vào file "Bao Ve Cua So Tam Hon.exe".
+3. Nếu Windows hiện "Windows protected your PC": bấm More info → Run anyway.
+   Đây không phải virus. Bản này chưa mua chứng chỉ ký số, mà chứng chỉ đó tốn tiền mỗi năm.
+   Nếu file được chép qua USB hoặc thư mục chia sẻ trong nhà thì Windows không hỏi gì.
+4. Ứng dụng chạy dưới khay, cạnh đồng hồ. Bấm chuột phải vào biểu tượng con mắt → Trang chính.
+
+XEM THỬ NGAY (không phải chờ 20 phút)
+Mở Trang chính, bấm nút "Xem thử màn hình nhắc" ở cuối trang.
+Màn hình sẽ phủ kín và đếm ngược 20 giây. Bấm "Bỏ qua lần này" để thoát ngay.
+
+BẬT TỰ CHẠY KHI MỞ MÁY
+Trong Trang chính, tích vào ô "Tự chạy khi mở máy".
+Ứng dụng tự đăng ký với Windows và trỏ tới đúng file exe này.
+Nếu sau này bạn di chuyển thư mục, phải bỏ tích rồi tích lại, nếu không Windows sẽ trỏ sai chỗ.
+
+THOÁT HẲN
+Bấm chuột phải vào biểu tượng con mắt → Thoát.
+Bấm dấu X trên cửa sổ chỉ là thu nhỏ xuống khay, ứng dụng vẫn chạy.
+
+GỠ BỎ
+1. Bấm chuột phải vào biểu tượng con mắt → Thoát.
+2. Mở Trang chính, bỏ tích "Tự chạy khi mở máy".
+3. Xoá thư mục này.
+Không có gì trong Settings của Windows để gỡ, vì bản này không cài đặt gì.
+
+KIỂM TRA FILE
+Tên:      Bao Ve Cua So Tam Hon.exe
+Dung lượng: 12.590.592 byte
+SHA-256:  67AF238BA5706F5F934BCD258925F3DF35F03AC6CA51B99C1B13BD4F790CFDA5
+
+Muốn chắc file không bị ai sửa, nhờ người gửi đối chiếu dãy SHA-256 ở trên.
+Giấy phép MIT. Xây dựng từ blink-eye 1.6.0 của Noman Dhoni (cũng MIT).

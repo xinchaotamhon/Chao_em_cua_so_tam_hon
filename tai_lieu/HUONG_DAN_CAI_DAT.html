@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chào em cửa sổ tâm hồn 2.1.2 — hướng dẫn cài đặt</title>
+<style>
+  :root {
+    --giay: #f7f3ea;
+    --chu: #22201b;
+    --phu: #6b6455;
+    --cham: #2e4a6b;
+    --dong: #c9a227;
+    --son: #b0392b;
+    --vien: #e2dbcc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--giay);
+    color: var(--chu);
+    font-family: "Segoe UI", system-ui, sans-serif;
+    line-height: 1.65;
+    font-size: 17px;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 56px 24px 96px; }
+  h1 { font-size: 30px; line-height: 1.25; margin: 0 0 6px; }
+  .sub { color: var(--phu); margin: 0 0 40px; font-size: 15px; }
+  h2 {
+    font-size: 19px; margin: 44px 0 12px; padding-top: 20px;
+    border-top: 1px solid var(--vien);
+  }
+  p, li { max-width: 62ch; }
+  ol, ul { padding-left: 22px; }
+  li { margin: 8px 0; }
+  code {
+    background: #efe9dc; padding: 1px 6px; border-radius: 4px;
+    font-size: 15px; word-break: break-all;
+  }
+  .hop {
+    border: 1px solid var(--vien); border-left: 3px solid var(--dong);
+    background: #fffcf5; padding: 16px 20px; border-radius: 6px; margin: 20px 0;
+  }
+  .hop.canh-bao { border-left-color: var(--son); }
+  .hop h3 { margin: 0 0 6px; font-size: 16px; }
+  .hop p:last-child { margin-bottom: 0; }
+  .buoc { font-weight: 600; color: var(--cham); }
+  table { border-collapse: collapse; width: 100%; margin: 14px 0; font-size: 16px; }
+  th, td { text-align: left; padding: 8px 12px 8px 0; border-bottom: 1px solid var(--vien); vertical-align: top; }
+  th { color: var(--phu); font-weight: 600; font-size: 14px; }
+  footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--vien); color: var(--phu); font-size: 14px; }
+  .sao { color: var(--dong); }
+</style>
+</head>
+<body>
+<main>
+
+  <h1><span class="sao">✳</span> Chào em cửa sổ tâm hồn</h1>
+  <p class="sub">Bản 2.1.2 · Phần mềm nhắc nghỉ mắt cho Windows · Miễn phí, mã nguồn mở</p>
+
+  <p>Cứ khoảng 20 phút, app sẽ phủ kín màn hình trong vài giây và nhắc bạn nhìn ra xa.
+     Đó là quy tắc 20-20-20: mỗi 20 phút, nhìn một vật cách 6 mét trong 20 giây.
+     App chạy dưới khay hệ thống cạnh đồng hồ và không gửi gì ra ngoài máy bạn.</p>
+
+  <h2>Cài đặt</h2>
+
+  <div class="hop canh-bao">
+    <h3>Đọc trước: giải nén ra Desktop hoặc Downloads</h3>
+    <p>Đừng chạy file cài đặt ngay trong file nén, và đừng chạy nó từ một thư mục mạng
+       hay ổ USB dùng chung. Hãy giải nén ra <code>Desktop</code> hoặc
+       <code>Downloads</code> rồi mới chạy. Nếu không, Windows có thể báo lỗi
+       <em>“Error opening file for writing”</em> giữa chừng.</p>
+  </div>
+
+  <ol>
+    <li><span class="buoc">Giải nén</span> file zip này ra Desktop hoặc Downloads.
+        Bạn sẽ thấy hai file: trang hướng dẫn này và một file
+        <code>Chào em cửa sổ tâm hồn_2.1.2_x64-setup.exe</code>.</li>
+
+    <li><span class="buoc">Bấm đúp</span> vào file <code>..._x64-setup.exe</code>.</li>
+
+    <li><span class="buoc">Windows sẽ hiện một bảng xanh</span> với dòng chữ
+        <em>“Windows protected your PC”</em> hoặc <em>“Windows đã bảo vệ PC của bạn”</em>.
+        Đây là phản ứng bình thường với mọi phần mềm chưa mua chứng chỉ ký số —
+        không phải dấu hiệu virus. Xem mục ngay dưới đây.</li>
+
+    <li><span class="buoc">Bấm Cài đặt</span> và đợi khoảng 5 giây.</li>
+
+    <li>Xong. Một biểu tượng ngôi sao vàng xuất hiện cạnh đồng hồ ở góc phải màn hình.</li>
+  </ol>
+
+  <h2>Bảng xanh “Windows protected your PC”</h2>
+
+  <p>Bảng này hiện ra vì file chưa có chứng chỉ ký số của một công ty. Chứng chỉ đó
+     tốn tiền mỗi năm, và bản này phát hành miễn phí nên không mua. Có đúng hai cú bấm
+     để đi tiếp:</p>
+
+  <ol>
+    <li>Bấm dòng chữ nhỏ <em>“More info”</em> (hoặc <em>“Thông tin thêm”</em>) ở
+        góc trái bảng.</li>
+    <li>Một nút <em>“Run anyway”</em> (hoặc <em>“Vẫn chạy”</em>) hiện ra bên dưới.
+        Bấm vào đó.</li>
+  </ol>
+
+  <p>Nếu bạn muốn tự kiểm tra trước khi bấm: mã nguồn của app nằm công khai ở
+     <code>github.com/xinchaotamhon/Chao_em_cua_so_tam_hon</code>, và mọi dòng chạy trên
+     máy bạn đều đọc được ở đó.</p>
+
+  <h2>Dùng hằng ngày</h2>
+
+  <ul>
+    <li><strong>Biểu tượng ngôi sao</strong> cạnh đồng hồ: bấm trái để mở cửa sổ chính,
+        bấm phải để mở menu <em>Trang chính / Nghỉ ngay / Thoát</em>.</li>
+    <li><strong>Đóng cửa sổ bằng dấu X</strong> không tắt app — app vẫn chạy nền và vẫn
+        nhắc đúng giờ. Muốn tắt hẳn thì dùng menu <em>Thoát</em>.</li>
+    <li><strong>Khi tới giờ nghỉ</strong>, màn hình phủ kín, có một vòng tròn đếm ngược,
+        một hình vẽ nhỏ chuyển động và một câu nhắc. Hết giờ thì tự đóng.</li>
+  </ul>
+
+  <h2>Cài đặt trong app</h2>
+
+  <p>Mở cửa sổ chính, chọn <em>Cài đặt</em> ở thanh bên trái.</p>
+
+  <table>
+    <tr><th>Mục</th><th>Nghĩa</th></tr>
+    <tr>
+      <td>Chia ngày thành nhiều phiên</td>
+      <td>Bật lên thì bạn đặt được tối đa 3 phiên, mỗi phiên có thời gian làm việc và
+          thời gian nghỉ riêng. Ví dụ: phiên 1 làm 20 phút nghỉ 20 giây, phiên 2 làm
+          30 phút nghỉ 5 phút. Hết phiên 3 thì quay lại phiên 1.
+          <br>Thời gian nghỉ nhập bằng hai ô <em>phút</em> và <em>giây</em>: nghỉ ngắn thì
+          để 0 phút 20 giây, nghỉ dài thì gõ 5 phút 0 giây, không phải tự đổi ra giây.</td>
+    </tr>
+    <tr>
+      <td>Đổi động tác mỗi lần nghỉ</td>
+      <td>Mỗi lần nghỉ hiện một hình vẽ chuyển động khác nhau: nhìn ra xa, chớp mắt chậm,
+          nhìn gần rồi nhìn xa, thả lỏng vai, đứng lên. Tắt thì chỉ hiện câu chữ ở trên.</td>
+    </tr>
+    <tr>
+      <td>Câu hiện ra khi nghỉ</td>
+      <td>Câu chữ bạn muốn đọc trong lúc nghỉ mắt.</td>
+    </tr>
+    <tr>
+      <td>Hình nền khi nghỉ</td>
+      <td>Chọn một ảnh hoặc một file GIF. Hình sẽ phóng to rất chậm trong lúc nghỉ.
+          Không chọn thì dùng nền tối mặc định.</td>
+    </tr>
+    <tr>
+      <td>Âm thanh</td>
+      <td>Tiếng chuông khi bắt đầu nghỉ và khi nghỉ xong. Không chọn thì dùng chuông
+          có sẵn.</td>
+    </tr>
+    <tr>
+      <td>Chế độ nghiêm khắc</td>
+      <td>Bỏ nút bỏ qua và không đóng được màn hình nhắc. <strong>Chỉ bật nếu bạn thật
+          sự muốn:</strong> khi bật, bạn sẽ không thoát ra được trong khoảng thời gian
+          nghỉ đã chọn, trừ khi tắt app bằng Task Manager.</td>
+    </tr>
+    <tr>
+      <td>Tự chạy khi mở máy</td>
+      <td>Bật để app có mặt ngay khi bạn đăng nhập Windows.</td>
+    </tr>
+  </table>
+
+  <p>Bấm <em>Lưu cài đặt</em> sau khi đổi bất cứ mục nào.</p>
+
+  <h2>Gỡ cài đặt</h2>
+
+  <p>Mở <em>Cài đặt</em> của Windows → <em>Ứng dụng</em> → <em>Ứng dụng đã cài</em>,
+     tìm <strong>Chào em cửa sổ tâm hồn</strong> và chọn <em>Gỡ bỏ</em>.</p>
+
+  <p>Nếu trước đây bạn đã cài bản <strong>Bảo Vệ Cửa Sổ Tâm Hồn 1.0.0</strong>: đó là một
+     sản phẩm tên khác, cài riêng. Bản 2.1.2 không tự gỡ nó, nên bạn hãy gỡ luôn ở cùng
+     chỗ đó để khỏi có hai biểu tượng cạnh đồng hồ.</p>
+
+  <h2>App này làm gì với máy bạn</h2>
+
+  <ul>
+    <li>Không gửi dữ liệu nào ra ngoài. Không có tài khoản, không có quảng cáo,
+        không có thống kê.</li>
+    <li>Chỉ ghi lại hai thứ trên máy bạn: số lần nhắc trong ngày, và thời gian bạn dùng
+        máy — cả hai đều nằm trong thư mục dữ liệu của app.</li>
+    <li>Nút <em>Kiểm tra bản mới</em> chỉ mở trang tải trong trình duyệt. App không tự
+        tải và không tự chạy gì.</li>
+  </ul>
+
+  <footer>
+    <p>Giấy phép MIT. Mã nguồn: github.com/xinchaotamhon/Chao_em_cua_so_tam_hon<br>
+       Dựa trên blink-eye của nomandhoni-cs (MIT) · Chữ Be Vietnam Pro (OFL 1.1) ·
+       Phương pháp thiết kế unslop của Damir Sokolovsky (CC BY 4.0)</p>
+  </footer>
+
+</main>
+</body>
+</html>

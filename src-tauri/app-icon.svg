@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!-- Chào em cửa sổ tâm hồn.
+       The mark is the Đông Sơn drum star: eight points, concave sides, in đồng on chàm.
+       Eight points rather than the drum's fourteen so it still reads at 16 px in the tray. -->
+  <rect width="1024" height="1024" rx="228" fill="#2E4A6B"/>
+  <circle cx="512" cy="512" r="366" fill="none" stroke="#F7F3EA" stroke-opacity="0.22" stroke-width="16"/>
+  <path fill="#C9A227" d="M512 212 L560.22 395.59 L724.13 299.87 L628.41 463.78 L812 512 L628.41 560.22 L724.13 724.13 L560.22 628.41 L512 812 L463.78 628.41 L299.87 724.13 L395.59 560.22 L212 512 L395.59 463.78 L299.87 299.87 L463.78 395.59 Z"/>
+</svg>
