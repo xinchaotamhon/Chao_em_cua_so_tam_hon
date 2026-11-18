@@ -7,7 +7,7 @@ Public: yes - a Vietnamese eye-care reminder released freely under MIT for anyon
 
 ## What this product is, and who it serves
 
-**Chào em cửa sổ tâm hồn** `2.1.2`: a Windows program that counts how long the screen has been in
+**Chào em cửa sổ tâm hồn** `2.1.3`: a Windows program that counts how long the screen has been in
 use and takes the whole screen for a short break when a stretch of work ends. It serves one person
 first - the owner, who sits at this machine all day - and then anyone who installs it.
 
@@ -36,7 +36,7 @@ rule holds.
 
     npm run tauri build
       -> src-tauri\target\release\chao-em-cua-so-tam-hon.exe
-      -> ...\bundle\nsis\Chào em cửa sổ tâm hồn_2.1.2_x64-setup.exe
+      -> ...\bundle\nsis\Chào em cửa sổ tâm hồn_2.1.3_x64-setup.exe
 
 The build needs `CARGO_HOME`, `RUSTUP_HOME`, `TMP`, `TEMP` and `npm_config_cache` pointed inside
 `.toolchain\`; `hau_can.md` holds the exact block, because the build fails with `LNK1104` without it.
@@ -46,7 +46,7 @@ Installing means running that one setup file from a normal folder - never from i
 `%LOCALAPPDATA%`. It lands in `%LOCALAPPDATA%\Chào em cửa sổ tâm hồn`, with a Start Menu shortcut and
 an uninstall entry named `Chào em cửa sổ tâm hồn`. There is no service, no account and no network.
 
-What the user receives is `tai_lieu\ChaoEmCuaSoTamHon-2.1.2-CaiDat.zip`: the setup file plus one
+What the user receives is `tai_lieu\ChaoEmCuaSoTamHon-2.1.3-CaiDat.zip`: the setup file plus one
 self-contained Vietnamese page that explains the Windows warning, names every setting as it appears
 on screen, and says how to uninstall.
 
@@ -59,16 +59,24 @@ on screen, and says how to uninstall.
   (`dan_chu\preview-hinh.mjs`), and one of them - chớp mắt chậm - has been seen inside the running app
   at 1920x1080. The other four have not been seen in the app itself.
 - Strict mode has not been tried against a real `Alt+F4`.
-- The tray menu's "Nghỉ ngay" entry has not been clicked.
-- A three-session schedule has not run a full cycle; only the single-session case has fired.
+- The tray menu's "Nghỉ ngay" entry has not been clicked; the same `startBreakNow` path was exercised
+  from the main screen's button instead.
+- A three-session schedule has not run a full cycle. The schedule itself has been seen advancing - a
+  manual break moved the screen from `Phiên 1/3` to `Phiên 2/3` and restarted the countdown on the
+  second session's own twenty minutes - but the clock has not fired through all three.
 - The folder is still named `bao_ve_cua_so_tam_hon` while the product is `Chào em cửa sổ tâm hồn`.
   Renaming it would touch the guard's table C, `hau_can.md`, both `tinh_yeu_nuoc.md` rows and
   `y_tuong.md`, so it is left as a recorded mismatch for the owner to decide.
 - `website\` - 63 files, 12,122,157 bytes of upstream's marketing site - is still in the tree,
-  unused, waiting for a decision to cut it.
+  unused, waiting for a decision to cut it. It is also the one folder left out of the public
+  repository, so the repository is the product and not the marketing site.
 
 ## Change log
 
+- 2026-11-18: `2.1.3` - a manual break now ends the stretch: "Nghỉ ngay" moves the schedule to the next
+  session and restarts the countdown with that session's own length, instead of opening the break
+  screen while the old clock kept running. Added the installed-app evidence and the install trap to
+  `hau_can.md`, and the note that the repository leaves `website\` out.
 - 2026-11-17: `2.1.2` - the break screen's words over a picture are now a fixed light tone whichever
   theme the app is in, because the owner found dark text on his bright background. `2.1.1` had
   redrawn figures 4 and 5 and had made the break typeable in minutes and seconds. Replaced

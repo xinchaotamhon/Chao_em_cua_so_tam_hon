@@ -898,7 +898,67 @@ then watched for twelve seconds and showed only the main window, so neither is a
 was the owner using the app, the other a click of this session that landed on the reminder. The
 mechanism of the first is the owner's report, not a measurement.
 
-### Still unverified after 2.1.2
+## 2.1.3 - a manual break ends the stretch, and the repository went up
+
+### The defect the owner found by using it
+
+*"Khi tôi bấm nghỉ ngay thì đồng hồ vẫn chạy và phiên không sang phiên mới."* He is right, and it was
+two answers to one question: the break screen said the stretch was over while the clock behind it kept
+counting and the session stayed where it was. "Nghỉ ngay", from the main screen and from the tray, only
+opened the break window; nothing told Rust that the stretch had ended.
+
+The fix is one command, `take_break_now`, and one rule for the caller: the break window is opened with
+the length that belonged to the stretch just ended. Rust moves the schedule on (`next_index`, which
+wraps like the clock's own firing), zeroes the elapsed counter and bumps the generation so the clock
+thread restarts; it returns the break length of the session that ended, because the snapshot cannot
+answer for it - by the time the break window boots, the schedule has already moved on. The caller
+(`startBreakNow` in `src\lib\reminderWindow.ts`) does both, and the window reads `?giay=<n>`.
+
+A manual break does **not** increase "Số lần nhắc hôm nay": that figure counts the reminders the app
+raised, and a break the user asked for is not one. That is a decision, not an oversight.
+
+Verified in the installed app: before the click the screen read `09:42`, "Làm 10 phút", `Phiên 1/3`;
+after the twenty-second break it read `19:35`, "Làm 20 phút", `Phiên 2/3` - the countdown restarted on
+session 2 and used session 2's own twenty minutes. `cargo test --lib --release` passes six tests,
+including the new `a_manual_break_moves_on_and_wraps`.
+
+### The install that lied, and the rule it leaves
+
+The first 2.1.3 install reported `exit 0` and the registry answered `DisplayVersion : 2.1.3`, but the
+exe in `%LOCALAPPDATA%` was still the 2.1.2 build: 13 894 656 B written 2026-11-17 22:55, and a scan of
+its bytes found `reminder_snapshot` twice and `take_break_now` zero times. The app had still been
+running when the installer ran, so NSIS updated the registry and skipped the locked file.
+
+The rule: after installing, compare the installed exe's write time and size with
+`src-tauri\target\release\chao-em-cua-so-tam-hon.exe`, or search its bytes for a string only the new
+build contains. The registry version is not evidence that the binary changed. Installing again with no
+process running gave 13 875 712 B, sha256 `835810617610829B...`, and `take_break_now` present once.
+
+### The repository
+
+`github.com/xinchaotamhon/Chao_em_cua_so_tam_hon` was an "Initial commit" holding one `LICENSE`. The
+product's tree now sits on top of it: commit `695db37`, 116 files, 1.5 MB, pushed to `main`, and
+`git ls-tree -r origin/main` lists `src/lib/actions.ts`, `src/components/BreakIllustration.tsx` and
+`dan_chu/preview-hinh.mjs`. The local repository is this folder with `origin` set; the credential
+already in Windows Credential Manager was enough, so the push ran without a login window.
+
+Left out of the repository on purpose, each with its reason in `.gitignore`: `node_modules` and `dist`
+(rebuilt from the lock files), `.toolchain` and `src-tauri/target` (1.5 GB and 7.7 GB of toolchain and
+build output), `tai_lieu/*.zip` and the extracted 1.0.0 installer (binaries belong in Releases), and
+`website/` - 11.6 MB of upstream's marketing site, including a 10.8 MB GIF, which nothing in the app
+imports. That last one is the only difference between the tree and the repository, and it disappears
+the day the owner decides to cut the folder.
+
+### MSIX, and what it does not do
+
+The owner wants MSIX to avoid the SmartScreen warning. MSIX is the right *format* for the Microsoft
+Store, but on its own it does not remove that warning: a downloaded MSIX whose signing certificate is
+not trusted on the machine fails with `0x800B0109`, and there is no "run anyway" path - a harder stop
+than the NSIS installer has today. The warning disappears only when the package is signed by something
+Windows already trusts: the Store, which signs every submitted package, or a paid code-signing
+certificate. Neither exists yet, so no MSIX was built. What it needs is recorded in `Y-056`.
+
+### Still unverified after 2.1.3
 
 - Only one of the five drawings has been seen inside the running app (chớp mắt, mid-blink, at
   1920x1080). The other four have been seen only as the browser render of the same component.
@@ -906,5 +966,7 @@ mechanism of the first is the owner's report, not a measurement.
 - Figure 5's seated pose is schematic: the legs shorten instead of bending at the knee, so it reads as
   sitting in motion rather than as a drawing of a seated person. If the owner wants a true seated
   pose, the two leg states have to be cross-faded rather than interpolated.
+- The repository's upstream workflows under `.github/workflows/` were carried over from the fork and
+  have never run here; whether they build an installer without upstream's secrets is unproven.
 
 Improvement: an AI may correct this file inside dan_chu; a change to its shape goes through khung_viet.md and the owner.

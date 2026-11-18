@@ -6,13 +6,13 @@ Updated: 2026-11-17 | Scope: purpose, contents and running flow of `van_lang\bao
 
 Read by an AI when this project is selected; the owner reads the project through this file.
 
-Human: install `src-tauri\target\release\bundle\nsis\Chào em cửa sổ tâm hồn_2.1.2_x64-setup.exe` once from a normal folder (not from inside this workspace - see `hau_can.md` on the low-integrity label); the app then sits in the tray and interrupts on the schedule the owner set.
+Human: install `src-tauri\target\release\bundle\nsis\Chào em cửa sổ tâm hồn_2.1.3_x64-setup.exe` once from a normal folder (not from inside this workspace - see `hau_can.md` on the low-integrity label); the app then sits in the tray and interrupts on the schedule the owner set.
 Engine: code - a Tauri desktop app on this machine; the countdown, the break screen and the media all run locally with no model and no network.
 Licence: MIT - permissive
 
 ## Purpose and consumer
 
-**What this project is, in one breath.** **Chào em cửa sổ tâm hồn** `2.1.2`, a Vietnamese eye-care
+**What this project is, in one breath.** **Chào em cửa sổ tâm hồn** `2.1.3`, a Vietnamese eye-care
 reminder for Windows, forked from `nomandhoni-cs/blink-eye` at its last MIT commit `0e440e7c9e`
 (v1.6.0, 2024-11-07), rebuilt in the owner's own way, and published at
 `github.com/xinchaotamhon/Chao_em_cua_so_tam_hon` so anyone can install it.
@@ -108,7 +108,7 @@ That toolchain is 1,581 MB sitting inside a child project, which the master map 
 
 Output is a tray icon and, when a stretch of work ends, a full-screen break window. The build produces
 `src-tauri\target\release\chao-em-cua-so-tam-hon.exe` and one installer in
-`...\bundle\nsis\Chào em cửa sổ tâm hồn_2.1.2_x64-setup.exe`.
+`...\bundle\nsis\Chào em cửa sổ tâm hồn_2.1.3_x64-setup.exe`.
 
 The countdown runs in Rust (`src-tauri\src\lib.rs`), not in the webview: a thread wakes once a second
 and emits `reminder-due`. Chromium throttles chained timers in a page hidden for more than five minutes
@@ -121,6 +121,16 @@ in the list is the ordinary single-interval case. The break is entered as minute
 one stored number of seconds - the twenty-second rule stays typeable, and a five-minute break does not
 have to be converted by hand. `set_schedule` replaces the list and bumps a
 generation counter, which restarts the countdown so a saved change takes effect at once.
+
+A break the user asks for - "Nghỉ ngay", on the main screen or in the tray - is the same statement as
+the clock firing: the stretch is over. So `take_break_now` moves the schedule to the next session,
+zeroes the elapsed count and returns the break length of the session that just ended, and the caller
+opens the break window with that length (`?giay=<n>`). It deliberately does not increase "Số lần nhắc
+hôm nay", which counts the reminders the app raised.
+
+The source lives at `github.com/xinchaotamhon/Chao_em_cua_so_tam_hon`; `.gitignore` keeps the
+toolchain, the build output, the delivery archives and `website\` out of it, so the repository is the
+product and not upstream's marketing site.
 
 Failure is explicit and each cause is recorded in `hau_can.md`: a missing Rust toolchain stops the
 `cargo` step; a `%TEMP%` the linker cannot write stops linking with `LNK1104`; a folder carrying a Low
