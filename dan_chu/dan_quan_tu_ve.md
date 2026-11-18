@@ -2,7 +2,7 @@ Role: HOW (BLOCK) - what this block is, what is inside it, how it runs. LOCAL, E
 
 # dan_quan_tu_ve - bao_ve_cua_so_tam_hon
 
-Updated: 2026-11-17 | Scope: purpose, contents and running flow of `van_lang\bao_ve_cua_so_tam_hon`.
+Updated: 2026-11-18 | Scope: purpose, contents and running flow of `van_lang\bao_ve_cua_so_tam_hon`.
 
 Read by an AI when this project is selected; the owner reads the project through this file.
 
