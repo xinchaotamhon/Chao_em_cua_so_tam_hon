@@ -13,6 +13,10 @@ dist
 /tai_lieu/*.zip
 /tai_lieu/BaoVeCuaSoTamHon-1.0.0-CaiDat/
 
+# The Store package is a build artifact that Partner Center keeps; one script rebuilds it.
+/tai_lieu/*.msix
+/tai_lieu/*.appxupload
+
 # Upstream's marketing site, 11.6 MB, which nothing in the app imports. It stays on the owner's
 # machine until he decides to cut it; it is not part of the product this repository publishes.
 /website/

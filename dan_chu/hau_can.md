@@ -958,6 +958,41 @@ than the NSIS installer has today. The warning disappears only when the package 
 Windows already trusts: the Store, which signs every submitted package, or a paid code-signing
 certificate. Neither exists yet, so no MSIX was built. What it needs is recorded in `Y-056`.
 
+### 2.1.3 - the Store package
+
+The MSIX the previous section said did not exist now exists, and it needed no download: `makeappx.exe`
+and `signtool.exe` were already on this machine, in
+`C:\Program Files (x86)\Windows Kits\10\App Certification Kit\`, and an earlier session had looked for
+them only under `Windows Kits\10\bin`. They are now a shared block, `lac_hong\rung_ngap_man\msix`, with
+`dan_chu\msix.cmd` and `dan_chu\ky.cmd`, and the packaging itself is `dan_chu\dong-goi-store.ps1` here.
+
+    $ pwsh -NoProfile -File dan_chu\dong-goi-store.ps1
+    Packing 7 file(s) ... to "tai_lieu\ChaoEmCuaSoTamHon-2.1.3-x64.msix"
+    MSIX      ...\tai_lieu\ChaoEmCuaSoTamHon-2.1.3-x64.msix
+    Size      4,654,094 B (4.4 MB)
+    Version   2.1.3.0
+    Identity  XinChaoTamHon.ChaoEmCuaSoTamHon
+    Publisher CN=00000000-0000-0000-0000-000000000000
+    sha256    65B75D94CAF631F945ED170B4206BD93622355BCF843096255328D0B8FFDD894
+
+    $ makeappx unpack /p <that file> /d <fresh dir>       -> exit 0, 8 entries:
+    AppxBlockMap.xml 16656, AppxManifest.xml 1749, 5 PNG assets, chao-em-cua-so-tam-hon.exe 13875712
+
+The first attempt failed and taught the manifest rule that is now written in the block's `hau_can.md`:
+`DefaultTile` may not name `Square310x310Logo` without `Wide310x150Logo`
+(`0x80080204 ... Line 33, Column 26`). The wide image is composed from the 150 square inside the script,
+so no second source asset was added to the project.
+
+`Identity` and `Publisher` are placeholders on purpose. They must be replaced with the pair Partner
+Center issues when the owner reserves the app name, and the package rebuilt; a package carrying the
+placeholder pair is refused at upload with a message that does not say which field is wrong.
+`tai_lieu\HUONG_DAN_NOP_STORE.md` walks through reserving the name, re-running the script, uploading,
+the listing fields, and the four things that decide a first submission.
+
+What is still unverified about this package: it has never been installed (that needs a certificate the
+machine trusts, and the Store is the only signer here), Partner Center has never seen it, and `appcert.exe`
+- the local version of the Store's checks - needs elevation and has not been run.
+
 ### Still unverified after 2.1.3
 
 - Only one of the five drawings has been seen inside the running app (chớp mắt, mid-blink, at

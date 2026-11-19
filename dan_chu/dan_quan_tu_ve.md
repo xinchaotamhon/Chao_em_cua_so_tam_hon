@@ -64,6 +64,7 @@ points turn to mush.
 | `system_prompt.md` | This project's own small View 2: what the project adds to the master law, and the `Master:` line that points at it |
 | `CONSTRUCTION.md` | View 1: the product, the person it serves, and how it is built and installed |
 | `preview-hinh.mjs` | Renders the five break drawings to a PNG with the browser already on this machine, so a redrawn figure can be looked at without building the app; it bundles the real component, never a copy of it |
+| `dong-goi-store.ps1` | Packs the release exe into an MSIX for the Microsoft Store with `lac_hong\rung_ngap_man\msix`; the identity pair comes from Partner Center |
 
 Everything else in `van_lang\bao_ve_cua_so_tam_hon` is the project's own software. The web side is
 23 files:
@@ -109,6 +110,15 @@ That toolchain is 1,581 MB sitting inside a child project, which the master map 
 Output is a tray icon and, when a stretch of work ends, a full-screen break window. The build produces
 `src-tauri\target\release\chao-em-cua-so-tam-hon.exe` and one installer in
 `...\bundle\nsis\Chào em cửa sổ tâm hồn_2.1.3_x64-setup.exe`.
+
+## Publishing
+
+Two routes ship the same exe. `tai_lieu\ChaoEmCuaSoTamHon-<version>-CaiDat.zip` is the NSIS installer for
+people who download it, and it carries the SmartScreen box. `tai_lieu\ChaoEmCuaSoTamHon-<version>-x64.msix`
+is the same exe packed for the Microsoft Store by `dan_chu\dong-goi-store.ps1`, which calls
+`lac_hong\rung_ngap_man\msix`; only the Store can sign it, so it is never installable by hand. The
+step-by-step for the owner is `tai_lieu\HUONG_DAN_NOP_STORE.md`, and the source is
+`github.com/xinchaotamhon/Chao_em_cua_so_tam_hon`.
 
 The countdown runs in Rust (`src-tauri\src\lib.rs`), not in the webview: a thread wakes once a second
 and emits `reminder-due`. Chromium throttles chained timers in a page hidden for more than five minutes

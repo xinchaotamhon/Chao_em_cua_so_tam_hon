@@ -50,6 +50,13 @@ What the user receives is `tai_lieu\ChaoEmCuaSoTamHon-2.1.3-CaiDat.zip`: the set
 self-contained Vietnamese page that explains the Windows warning, names every setting as it appears
 on screen, and says how to uninstall.
 
+The second route is the Microsoft Store, because that box is where a stranger stops. `dan_chu\dong-goi-store.ps1`
+packs the same exe into `tai_lieu\ChaoEmCuaSoTamHon-<version>-x64.msix` with the shared block
+`lac_hong\rung_ngap_man\msix`, and `tai_lieu\HUONG_DAN_NOP_STORE.md` is the owner's step-by-step from
+reserving the name in Partner Center to submitting for certification. Only the Store signs that package,
+so it cannot be installed by hand; the NSIS zip stays the route for a direct download. The source is
+public at `github.com/xinchaotamhon/Chao_em_cua_so_tam_hon`.
+
 ## What is not verified
 
 - A custom picture now works end to end: the owner picked one himself on 2026-11-17, and the store
@@ -73,6 +80,9 @@ on screen, and says how to uninstall.
 
 ## Change log
 
+- 2026-11-19: Added the Store route: a paragraph after the installer section naming
+  `dan_chu\dong-goi-store.ps1`, the `.msix` artifact, `HUONG_DAN_NOP_STORE.md` and the public repository.
+  The MSIX exists because `makeappx` was already installed on this machine; nothing was downloaded.
 - 2026-11-18: `2.1.3` - a manual break now ends the stretch: "Nghỉ ngay" moves the schedule to the next
   session and restarts the countdown with that session's own length, instead of opening the break
   screen while the old clock kept running. Added the installed-app evidence and the install trap to
