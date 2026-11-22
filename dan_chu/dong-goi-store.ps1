@@ -2,9 +2,10 @@
 #
 # Chạy sau khi đã có bản dựng release:
 #
-#   $env:CARGO_HOME="<dự án>\.toolchain\cargo"; $env:RUSTUP_HOME="<dự án>\.toolchain\rustup"
+#   $env:CARGO_HOME="D:\nguyen_ai_dan\lac_hong\rung_ngap_man\rust\cargo"
+#   $env:RUSTUP_HOME="D:\nguyen_ai_dan\lac_hong\rung_ngap_man\rust\rustup"
 #   $env:TMP=$env:TEMP="<dự án>\.toolchain\tmp"; $env:npm_config_cache="<dự án>\.toolchain\tmp\npm-cache"
-#   $env:PATH="<dự án>\.toolchain\cargo\bin;$env:PATH"
+#   $env:PATH="D:\nguyen_ai_dan\lac_hong\rung_ngap_man\rust\cargo\bin;$env:PATH"
 #   npm run tauri build
 #   pwsh -NoProfile -File dan_chu\dong-goi-store.ps1 -IdentityName "..." -Publisher "CN=..."
 #

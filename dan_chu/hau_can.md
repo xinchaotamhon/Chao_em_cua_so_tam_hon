@@ -71,7 +71,7 @@ Deliberate changes from commit `0e440e7c9e` so far:
 | File | Change | Why |
 | --- | --- | --- |
 | `src-tauri\tauri.conf.json` | `"beforeDevCommand"` and `"beforeBuildCommand"` changed from `bun run dev` / `bun run build` to `npm run dev` / `npm run build` | Bun is not installed and the owner chose npm; leaving `bun` there makes every build fail on a missing command |
-| `.gitignore` | appended `/.toolchain` | The Rust toolchain is a runtime inside this block, 0.8 GB of it, and must never reach a published repository. `package-lock.json` is deliberately not ignored: it is the pin this project now owns |
+| `.gitignore` | appended `/.toolchain` | The Rust toolchain was a runtime inside this block, 0.8 GB of it at the time - it moved to `lac_hong\rung_ngap_man\rust` on 2026-11-20, and on 2026-11-21 the two old folders and then the old installer were deleted, so `.toolchain` holds `tmp` alone - and none of it may reach a published repository. `package-lock.json` is deliberately not ignored: it is the pin this project now owns |
 | `src-tauri\tauri.conf.json` | `productName` "Blink Eye" to "Bao Ve Cua So Tam Hon"; `version` 1.6.0 to 1.0.0; `identifier` `com.blinkeye.app` to `vn.baovecuasotamhon.app`; window `title`, `copyright`, `publisher` and both descriptions rewritten; `createUpdaterArtifacts` false; `plugins.updater` deleted; `targets` "all" to `["nsis"]` | The product is the owner's, not the author's: the old identifier collides with upstream's install location, and the author's name does not belong on a fork. The updater pointed at upstream's releases and needed a private key this project does not have. MSI packaging fails on the Vietnamese metadata, and NSIS is the installer a Windows beginner expects anyway |
 | `src-tauri\Cargo.toml` | package `Blink-Eye` to `bao-ve-cua-so-tam-hon`, lib `blink_eye_lib` to `bao_ve_cua_so_tam_hon_lib`, version 1.0.0, authors, description; `tauri-plugin-updater` removed | The binary name follows the crate, so the installed executable stops being `Blink-Eye.exe` |
 | `src-tauri\src\main.rs` | `blink_eye_lib::run()` to `bao_ve_cua_so_tam_hon_lib::run()` | Follows the renamed lib |
@@ -129,11 +129,12 @@ total       194 file(s)  13,697,106 B
 
 ## How to rebuild it from nothing
 
-1. Install the Rust toolchain, which is the one missing piece:
-   `rustup-init.exe` (12.2 MB) from
-   `https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe`, default
-   options, which fetch the stable `x86_64-pc-windows-msvc` toolchain. MSVC and the Windows SDK are
-   already installed, so no Visual Studio download is needed.
+1. Use the Rust toolchain from the shared parent block `lac_hong\rung_ngap_man\rust` (`rustc` and
+   `cargo` `1.99.1`, `stable-x86_64-pc-windows-msvc`), which moved there on 2026-11-20. Only if that
+   block is gone: `rustup-init.exe` (12.2 MB) from
+   `https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe`, run with
+   `CARGO_HOME` and `RUSTUP_HOME` pointed at the block, which fetches the same stable toolchain. MSVC
+   and the Windows SDK are already installed, so no Visual Studio download is needed.
 2. Fetch the source at the pinned commit, never from a branch:
    `https://codeload.github.com/nomandhoni-cs/blink-eye/zip/0e440e7c9e6e3cb38b606c0c001d5cbce08b01c0`
    (12,992,721 bytes, SHA-256 `B429BD3DA4073888555E57FC7208D1089F641D483673DD1CF34F42442DAFB8B1`),
@@ -943,8 +944,9 @@ product's tree now sits on top of it: commit `695db37`, 116 files, 1.5 MB, pushe
 already in Windows Credential Manager was enough, so the push ran without a login window.
 
 Left out of the repository on purpose, each with its reason in `.gitignore`: `node_modules` and `dist`
-(rebuilt from the lock files), `.toolchain` and `src-tauri/target` (1.5 GB and 7.7 GB of toolchain and
-build output), `tai_lieu/*.zip` and the extracted 1.0.0 installer (binaries belong in Releases), and
+(rebuilt from the lock files), `.toolchain` and `src-tauri/target` (43,390,700 B and 8.5 GB measured
+2026-11-21 - `.toolchain` holds `tmp` alone since the two old folders moved out and the installer was
+deleted, and `target` was cleaned to zero the same day, so both are rebuilt on demand), `tai_lieu/*.zip` and the extracted 1.0.0 installer (binaries belong in Releases), and
 `website/` - 11.6 MB of upstream's marketing site, including a 10.8 MB GIF, which nothing in the app
 imports. That last one is the only difference between the tree and the repository, and it disappears
 the day the owner decides to cut the folder.
@@ -993,7 +995,39 @@ What is still unverified about this package: it has never been installed (that n
 machine trusts, and the Store is the only signer here), Partner Center has never seen it, and `appcert.exe`
 - the local version of the Store's checks - needs elevation and has not been run.
 
-### Still unverified after 2.1.3
+## 2.1.4 - the break window can no longer be left on the screen
+
+The owner reported, with a screenshot, a break at `00:00` that never closed: *"khi tôi bấm nghỉ ngay ở
+phiên 3 thì khi chạy xong bị treo màn hình không tự tắt đi"*. Session 3 in his store is 20 minutes of work
+and an 80-second break, so the break was longer than a minute, which is the only unusual thing about it.
+
+**What was measured, not guessed.** The break window was followed by listing the process's top-level
+windows and their titles instead of by screenshots. On 2.1.3 the reported path was walked twice - three
+"Ngỉ ngay" clicks in a row, the third carrying session 3's 80 seconds - and the window closed correctly
+each time (`Nghỉ mắt` visible at second 3, gone at second 85). So the hang did not reproduce here, and the
+root cause is not established.
+
+**What changed anyway.** The end of the break had one way to close the window and no fallback:
+`appWindow.close()` in a 1400 ms timer. A close request can be refused - by a listener, by the window
+manager - and the result is a full-screen window on top of everything with `00:00` on it. `Reminder.tsx`
+now closes through `closeForGood()`: one guard so the sound and the attempt happen once, `close()` first,
+and `destroy()` after it, which removes the window whatever any listener says. The "Bỏ qua lần này"
+button uses the same helper, so the manual way out cannot fail where the automatic one did.
+
+Verified on the installed 2.1.4 (installed exe `13 868 032 B`, sha256 prefix `29DA3533EBA00666`, equal to
+the built exe - the check that 2.1.3 taught):
+
+    break 1 (session 1, 20 s):  "Nghỉ mắt" visible at 3 s, gone at 25 s
+    break 2 (session 2, 20 s):  gone at 25 s
+    break 3 (session 3, 80 s):  visible at 3 s, gone at 85 s
+
+**Still open.** If the webview itself freezes, nothing on the JavaScript side runs and the window stays;
+that case needs a watchdog in Rust with a heartbeat from the window, and it is not built because there is
+no evidence of a frozen webview yet. The one observation that decides between the two is whether
+"Bỏ qua lần này" worked when it hung: if it did, the close was refused and this fix covers it; if the whole
+screen was dead to clicks, the watchdog is what is missing.
+
+### Still unverified after 2.1.4
 
 - Only one of the five drawings has been seen inside the running app (chớp mắt, mid-blink, at
   1920x1080). The other four have been seen only as the browser render of the same component.

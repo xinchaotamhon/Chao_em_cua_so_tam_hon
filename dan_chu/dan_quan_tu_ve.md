@@ -2,17 +2,17 @@ Role: HOW (BLOCK) - what this block is, what is inside it, how it runs. LOCAL, E
 
 # dan_quan_tu_ve - bao_ve_cua_so_tam_hon
 
-Updated: 2026-11-19 | Scope: purpose, contents and running flow of `van_lang\bao_ve_cua_so_tam_hon`.
+Updated: 2026-11-21 | Scope: purpose, contents and running flow of `van_lang\bao_ve_cua_so_tam_hon`.
 
 Read by an AI when this project is selected; the owner reads the project through this file.
 
-Human: install `src-tauri\target\release\bundle\nsis\Chào em cửa sổ tâm hồn_2.1.3_x64-setup.exe` once from a normal folder (not from inside this workspace - see `hau_can.md` on the low-integrity label); the app then sits in the tray and interrupts on the schedule the owner set.
+Human: install `src-tauri\target\release\bundle\nsis\Chào em cửa sổ tâm hồn_2.1.4_x64-setup.exe` once from a normal folder (not from inside this workspace - see `hau_can.md` on the low-integrity label); the app then sits in the tray and interrupts on the schedule the owner set.
 Engine: code - a Tauri desktop app on this machine; the countdown, the break screen and the media all run locally with no model and no network.
 Licence: MIT - permissive
 
 ## Purpose and consumer
 
-**What this project is, in one breath.** **Chào em cửa sổ tâm hồn** `2.1.3`, a Vietnamese eye-care
+**What this project is, in one breath.** **Chào em cửa sổ tâm hồn** `2.1.4`, a Vietnamese eye-care
 reminder for Windows, forked from `nomandhoni-cs/blink-eye` at its last MIT commit `0e440e7c9e`
 (v1.6.0, 2024-11-07), rebuilt in the owner's own way, and published at
 `github.com/xinchaotamhon/Chao_em_cua_so_tam_hon` so anyone can install it.
@@ -92,24 +92,31 @@ the app imports it and `hau_can.md` records that it is uncut.
 
 ## How to run it: entry, input, output, failure
 
-The Rust toolchain and the npm packages are installed inside the project, so the entry is:
+The Rust toolchain is the shared parent block `lac_hong\rung_ngap_man\rust`; the npm packages are
+installed inside the project. The build entry is:
 
 ```powershell
-$env:CARGO_HOME  = "D:\nguyen_ai_dan\van_lang\bao_ve_cua_so_tam_hon\.toolchain\cargo"
-$env:RUSTUP_HOME = "D:\nguyen_ai_dan\van_lang\bao_ve_cua_so_tam_hon\.toolchain\rustup"
+$env:CARGO_HOME  = "D:\nguyen_ai_dan\lac_hong\rung_ngap_man\rust\cargo"
+$env:RUSTUP_HOME = "D:\nguyen_ai_dan\lac_hong\rung_ngap_man\rust\rustup"
 $env:TMP = $env:TEMP = "D:\nguyen_ai_dan\van_lang\bao_ve_cua_so_tam_hon\.toolchain\tmp"
 $env:npm_config_cache = "D:\nguyen_ai_dan\van_lang\bao_ve_cua_so_tam_hon\.toolchain\tmp\npm-cache"
-$env:PATH = "D:\nguyen_ai_dan\van_lang\bao_ve_cua_so_tam_hon\.toolchain\cargo\bin;$env:PATH"
+$env:PATH = "D:\nguyen_ai_dan\lac_hong\rung_ngap_man\rust\cargo\bin;$env:PATH"
 cd D:\nguyen_ai_dan\van_lang\bao_ve_cua_so_tam_hon
 npm run tauri build
 ```
 
-That toolchain is 1,581 MB sitting inside a child project, which the master map forbids; `Y-054` in
-`dien_hong\y_tuong.md` is the plan to move it to `lac_hong\rung_ngap_man\rust`.
+`dan_chu\rust.cmd` in that block sets `CARGO_HOME`, `RUSTUP_HOME` and `PATH` from its own location, so
+a session that only compiles can call `dan_chu\rust.cmd cargo check` instead of setting them by hand.
+
+The toolchain moved there on 2026-11-20 (the change `Y-054` tracked, closed 2026-11-21): 19,853 files /
+1,637,893,286 B now serve every Rust consumer on this machine instead of one child, and this project's
+`.toolchain\cargo` and `.toolchain\rustup` were deleted on 2026-11-21, after the build was proved green
+and the owner gave the word. `.toolchain\tmp` stays, because `TMP`, `TEMP` and the npm cache still point
+at it; the old `rustup-init.exe` installer is still beside it.
 
 Output is a tray icon and, when a stretch of work ends, a full-screen break window. The build produces
 `src-tauri\target\release\chao-em-cua-so-tam-hon.exe` and one installer in
-`...\bundle\nsis\Chào em cửa sổ tâm hồn_2.1.3_x64-setup.exe`.
+`...\bundle\nsis\Chào em cửa sổ tâm hồn_2.1.4_x64-setup.exe`.
 
 ## Publishing
 

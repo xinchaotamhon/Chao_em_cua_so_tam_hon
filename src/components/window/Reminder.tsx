@@ -43,6 +43,30 @@ export default function Reminder() {
 
   const startRef = useRef<HTMLAudioElement | null>(null);
   const endRef = useRef<HTMLAudioElement | null>(null);
+  const closingRef = useRef(false);
+
+  /**
+   * The break is over: take this window off the screen, and do not rely on one request to do it.
+   *
+   * A close request can be refused - by a listener, by the window manager, by a state the window is
+   * in - and a full-screen window that stays on top with 00:00 on it is a hung screen to the person
+   * sitting in front of it. So a refused close falls through to `destroy`, which removes the window
+   * whatever any listener says, and the guard keeps that to exactly one attempt.
+   */
+  const closeForGood = async () => {
+    if (closingRef.current) return;
+    closingRef.current = true;
+    try {
+      await appWindow.close();
+    } catch {
+      /* fall through to destroy */
+    }
+    try {
+      await appWindow.destroy();
+    } catch {
+      /* already gone */
+    }
+  };
 
   useEffect(() => {
     const load = async () => {
@@ -84,7 +108,7 @@ export default function Reminder() {
   useEffect(() => {
     if (left <= 0) {
       endRef.current?.play().catch(() => {});
-      const id = window.setTimeout(() => void appWindow.close(), 1400);
+      const id = window.setTimeout(() => void closeForGood(), 1400);
       return () => window.clearTimeout(id);
     }
     const id = window.setInterval(() => setLeft((n) => n - 1), 1000);
@@ -170,7 +194,7 @@ export default function Reminder() {
         {!strict ? (
           <button
             type="button"
-            onClick={() => void appWindow.close()}
+            onClick={() => void closeForGood()}
             className={`text-[13px] underline-offset-4 transition-colors hover:underline ${soft}`}
           >
             Bỏ qua lần này
