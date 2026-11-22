@@ -2,7 +2,7 @@ Role: WHEN (VIEW 1) - what this product is, who it serves, and how it is built. 
 
 # CONSTRUCTION - bao_ve_cua_so_tam_hon
 
-Updated: 2026-11-17 | Scope: the product, the person it serves, and the way it is built and installed.
+Updated: 2026-11-22 | Scope: the product, the person it serves, and the way it is built and installed.
 Public: yes - a Vietnamese eye-care reminder released freely under MIT for anyone to install.
 
 ## What this product is, and who it serves

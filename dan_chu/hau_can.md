@@ -2,7 +2,7 @@ Role: HOW (BLOCK) - what this block depends on and how to rebuild it. LOCAL, Eng
 
 # hau_can - bao_ve_cua_so_tam_hon
 
-Updated: 2026-11-17 | Scope: why this commit, what was kept and cut, dependencies, rebuild steps,
+Updated: 2026-11-22 | Scope: why this commit, what was kept and cut, dependencies, rebuild steps,
 verified evidence, and what stays unverified.
 Upstream: github:nomandhoni-cs/blink-eye@0e440e7c9e6e3cb38b606c0c001d5cbce08b01c0
 
